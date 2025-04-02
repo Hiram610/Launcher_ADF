@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ADF Launcher</string>
+    <string name="name">app_name</string>
+    <string name="user">USUARIO</string>
+    <string name="password">CONTRASEÑA</string>
+    <string name="login_Button">ENTRAR</string>
+    <string name="admin_Button">.  .  .</string>
+    <string name="back_Button">.  .  . </string>
+    <string name="quick_button">Quick Settings</string>
+    <string name="pop_menu_add">Añadir App al modo Usuario</string>
+    <string name="pop_menu_delete">Quitar App</string>
+</resources>
