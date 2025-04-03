@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -193,6 +194,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     class QuickSettingsFragment : DialogFragment() {
+        lateinit var wifiManager : WifiManager
+
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
             val builder = AlertDialog.Builder(requireContext())
@@ -200,8 +203,15 @@ class MainActivity : AppCompatActivity() {
 
             val btnWifi : Button = view.findViewById(R.id.wifi_button)
 
+            wifiManager = requireContext().applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+
             btnWifi.setOnClickListener {
-                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+                if(wifiManager.isWifiEnabled) {
+                    wifiManager.setWifiEnabled(false)
+                } else {
+                    wifiManager.setWifiEnabled(true)
+                }
+                // startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
             }
 
             builder.setView(view)
