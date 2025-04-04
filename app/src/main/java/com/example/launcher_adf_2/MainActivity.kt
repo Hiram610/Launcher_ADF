@@ -64,10 +64,16 @@ class MainActivity : AppCompatActivity() {
             openDialogFragment()
         }
 
-        // kioscoMode()
-        loadApps()
-        adapterApps()
-        addClickListener()
+        try {
+            kioscoMode()
+            loadApps()
+            adapterApps()
+            addClickListener()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Hubo un problema con ${e.message}", Toast.LENGTH_LONG).show()
+        }
+
+
     }
 
     fun loadApps() {
@@ -136,11 +142,11 @@ class MainActivity : AppCompatActivity() {
         if (!dpm.isAdminActive(componentName)) {
             val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName)
-            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Esta app requiere permisos para deshabilitar la barra de estado.")
-            dpm.setStatusBarDisabled(componentName, false)
+            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Esta app requiere permisos de Administrador para ejecutar.")
+
             startActivityForResult(intent, 1)
         } else {
-
+            dpm.setStatusBarDisabled(componentName, true)
         }
     }
 
@@ -207,11 +213,18 @@ class MainActivity : AppCompatActivity() {
 
             btnWifi.setOnClickListener {
                 if(wifiManager.isWifiEnabled) {
-                    wifiManager.setWifiEnabled(false)
+                    wifiManager.isWifiEnabled = false
+                    Toast.makeText(requireContext(), "Wifi Apagado", Toast.LENGTH_SHORT).show()
                 } else {
-                    wifiManager.setWifiEnabled(true)
+                    wifiManager.isWifiEnabled = true
+                    Toast.makeText(requireContext(), "Wifi Escendido", Toast.LENGTH_SHORT).show()
                 }
-                // startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+
+            }
+
+            btnWifi.setOnLongClickListener {
+                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+                true
             }
 
             builder.setView(view)
