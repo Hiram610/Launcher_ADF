@@ -5,7 +5,6 @@ import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.GridView
@@ -55,9 +53,11 @@ class MainActivity : AppCompatActivity() {
         var quickSettingsButton : Button = findViewById(R.id.quick_button)
 
         button.setOnClickListener {
-            var intent = Intent(this, LoginActivity::class.java)
-            this.startActivity(intent)
-            finish()
+            var panelLogin = LoginFragment()
+            panelLogin.show(supportFragmentManager, "Dialog Login")
+//            var intent = Intent(this, LoginActivity::class.java)
+//            this.startActivity(intent)
+//            finish()
         }
 
         quickSettingsButton.setOnClickListener {
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         try {
-            kioscoMode()
+            //kioscoMode()
             loadApps()
             adapterApps()
             addClickListener()
@@ -151,11 +151,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openDialogFragment() {
-        val panel = QuickSettingsFragment()
-        panel.show(supportFragmentManager, "quick settings")
+        val panelQuickSettings = QuickSettingsFragment()
+        panelQuickSettings.show(supportFragmentManager, "quick settings")
     }
 
-    private fun isDefaultLauncher() : Boolean {
+    fun isDefaultLauncher() : Boolean {
         val intent = Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_HOME)
         }
@@ -214,10 +214,10 @@ class MainActivity : AppCompatActivity() {
             btnWifi.setOnClickListener {
                 if(wifiManager.isWifiEnabled) {
                     wifiManager.isWifiEnabled = false
-                    Toast.makeText(requireContext(), "Wifi Apagado", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Wifi Apagado", Toast.LENGTH_SHORT).show()
                 } else {
                     wifiManager.isWifiEnabled = true
-                    Toast.makeText(requireContext(), "Wifi Escendido", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Wifi Escendido", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -231,5 +231,7 @@ class MainActivity : AppCompatActivity() {
             return builder.create()
         }
     }
+
+
 
 }

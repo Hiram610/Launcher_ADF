@@ -1,5 +1,7 @@
 package com.example.launcher_adf_2
 
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -46,6 +48,7 @@ class AppsListActivity : AppCompatActivity() {
             finish()
         }
 
+        //salirKiosco()
         loadApps()
         adapterApps()
         addClickListener()
@@ -103,6 +106,13 @@ class AppsListActivity : AppCompatActivity() {
             popMenu.show()
             true
         }
+    }
+
+    private fun salirKiosco(){
+        val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val componentName = ComponentName(this, AdminReceiver::class.java)
+
+        dpm.setStatusBarDisabled(componentName, false)
     }
 
     class appAdapter : BaseAdapter {
