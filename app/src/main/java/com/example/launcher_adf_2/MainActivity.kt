@@ -1,12 +1,10 @@
 package com.example.launcher_adf_2
 
-import android.app.Dialog
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -20,11 +18,9 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.DialogFragment
 import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
 
 class MainActivity : AppCompatActivity() {
@@ -55,9 +51,6 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             var panelLogin = LoginFragment()
             panelLogin.show(supportFragmentManager, "Dialog Login")
-//            var intent = Intent(this, LoginActivity::class.java)
-//            this.startActivity(intent)
-//            finish()
         }
 
         quickSettingsButton.setOnClickListener {
@@ -198,40 +191,4 @@ class MainActivity : AppCompatActivity() {
             return vista
         }
     }
-
-    class QuickSettingsFragment : DialogFragment() {
-        lateinit var wifiManager : WifiManager
-
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-            val builder = AlertDialog.Builder(requireContext())
-            val view = requireActivity().layoutInflater.inflate(R.layout.quick_panel, null)
-
-            val btnWifi : Button = view.findViewById(R.id.wifi_button)
-
-            wifiManager = requireContext().applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-
-            btnWifi.setOnClickListener {
-                if(wifiManager.isWifiEnabled) {
-                    wifiManager.isWifiEnabled = false
-                    //Toast.makeText(requireContext(), "Wifi Apagado", Toast.LENGTH_SHORT).show()
-                } else {
-                    wifiManager.isWifiEnabled = true
-                    //Toast.makeText(requireContext(), "Wifi Escendido", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-
-            btnWifi.setOnLongClickListener {
-                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-                true
-            }
-
-            builder.setView(view)
-            return builder.create()
-        }
-    }
-
-
-
 }

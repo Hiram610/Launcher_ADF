@@ -355,7 +355,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/circle/baseline_circle_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/wifi/baseline_wifi_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -366,7 +366,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="circle_background" />
+                            <entry key="outputName" value="wifi_1" />
                             <entry key="sourceFile" value="D:\AndroidStudioProjects\Launcher_ADF_2" />
                           </map>
                         </option>
