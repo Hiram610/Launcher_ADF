@@ -1,5 +1,7 @@
 package com.example.launcher_adf_2
 
+import android.Manifest
+import android.app.WallpaperManager
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -14,6 +16,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     var adapter : appAdapter? = null // Adaptador para la Lista de las apps
     lateinit var manager: PackageManager // Administrador de las apps Instaladas
     lateinit var appList : GridView // La vista de las apps
+    lateinit var layout : LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,15 +62,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         try {
-            //kioscoMode()
+            cargarFondo()
+            // kioscoMode()
             loadApps()
             adapterApps()
             addClickListener()
         } catch (e: Exception) {
             Toast.makeText(this, "Hubo un problema con ${e.message}", Toast.LENGTH_LONG).show()
         }
-
-
     }
 
     fun loadApps() {
@@ -141,6 +144,12 @@ class MainActivity : AppCompatActivity() {
         } else {
             dpm.setStatusBarDisabled(componentName, true)
         }
+    }
+
+    fun cargarFondo() {
+        layout = findViewById(R.id.main)
+        val wallpaper = WallpaperManager.getInstance(this).drawable
+        layout.background = wallpaper
     }
 
     fun openDialogFragment() {

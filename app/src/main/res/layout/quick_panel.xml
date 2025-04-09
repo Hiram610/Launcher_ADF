@@ -16,12 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/wifi_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:backgroundTint="@color/green"
-            android:layout_marginBottom="10dp"/>
+            android:layout_width="70dp"
+            android:layout_height="75dp"
+            android:background="@mipmap/wifi_state_2"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/wifi_text"
