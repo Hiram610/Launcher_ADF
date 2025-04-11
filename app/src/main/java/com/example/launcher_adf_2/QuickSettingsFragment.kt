@@ -5,16 +5,20 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context.WIFI_SERVICE
 import android.content.Intent
+import android.net.wifi.SupplicantState
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 
 class QuickSettingsFragment : DialogFragment() {
-    lateinit var wifiManager : WifiManager
-    lateinit var  btnWifi : ImageButton
+    private lateinit var wifiManager : WifiManager
+    private lateinit var btnWifi : ImageButton
+    private lateinit var textNameWifi : TextView
+
     @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -22,12 +26,14 @@ class QuickSettingsFragment : DialogFragment() {
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.quick_panel, null)
 
         btnWifi = view.findViewById(R.id.wifi_button)
+        textNameWifi = view.findViewById(R.id.wifi_name)
 
         wifiManager = requireContext().applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
 
-        verificarColorWifi()
+        verificarWifi()
 
         btnWifi.setOnClickListener {
+
             if(wifiManager.isWifiEnabled) {
                 wifiManager.setWifiEnabled(false)
                 btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
@@ -35,6 +41,7 @@ class QuickSettingsFragment : DialogFragment() {
             else {
                 wifiManager.setWifiEnabled(true)
                 btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
+                cambiarNombreWifi()
             }
         }
 
@@ -49,7 +56,7 @@ class QuickSettingsFragment : DialogFragment() {
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun verificarColorWifi() {
+    private fun verificarWifi() {
 
         when(wifiManager.isWifiEnabled) {
             true -> {
@@ -59,6 +66,19 @@ class QuickSettingsFragment : DialogFragment() {
                 btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
             }
         }
+    }
 
+    private fun cambiarNombreWifi() {
+
+        var wifiInfo = wifiManager.connectionInfo
+
+        while (wifiInfo.supplicantState != SupplicantState.COMPLETED) {
+            textNameWifi.text = "Conectando ."
+            textNameWifi.text = "Conectando .."
+            textNameWifi.text = "Conectando ..."
+
+        }
+
+        textNameWifi.text = wifiInfo.ssid
     }
 }

@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_app_adf"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -13,24 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <ImageButton
             android:id="@+id/quick_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:backgroundTint="@color/gray"
-            android:text="@string/quick_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/button_settings"
+            android:layout_marginLeft="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/apps_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:backgroundTint="@color/gray"
-            android:text="@string/admin_Button"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/button_admin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

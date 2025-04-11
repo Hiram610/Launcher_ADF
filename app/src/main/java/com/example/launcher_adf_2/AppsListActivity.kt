@@ -48,7 +48,7 @@ class AppsListActivity : AppCompatActivity() {
             finish()
         }
 
-        //salirKiosco()
+        salirKiosco()
         loadApps()
         adapterApps()
         addClickListener()

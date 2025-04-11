@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.GridView
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupMenu
@@ -49,8 +50,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
         }
 
-        var button: Button = findViewById(R.id.apps_button)
-        var quickSettingsButton : Button = findViewById(R.id.quick_button)
+        var button: ImageButton = findViewById(R.id.apps_button)
+        var quickSettingsButton : ImageButton = findViewById(R.id.quick_button)
 
         button.setOnClickListener {
             var panelLogin = LoginFragment()
@@ -62,8 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         try {
-            cargarFondo()
-            // kioscoMode()
+            kioscoMode()
             loadApps()
             adapterApps()
             addClickListener()
@@ -144,12 +144,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             dpm.setStatusBarDisabled(componentName, true)
         }
-    }
-
-    fun cargarFondo() {
-        layout = findViewById(R.id.main)
-        val wallpaper = WallpaperManager.getInstance(this).drawable
-        layout.background = wallpaper
     }
 
     fun openDialogFragment() {
