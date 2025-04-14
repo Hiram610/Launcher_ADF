@@ -31,6 +31,7 @@ class QuickSettingsFragment : DialogFragment() {
         wifiManager = requireContext().applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
 
         verificarWifi()
+        cambiarNombreWifi()
 
         btnWifi.setOnClickListener {
 
@@ -41,7 +42,6 @@ class QuickSettingsFragment : DialogFragment() {
             else {
                 wifiManager.setWifiEnabled(true)
                 btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
-                cambiarNombreWifi()
             }
         }
 
@@ -72,13 +72,11 @@ class QuickSettingsFragment : DialogFragment() {
 
         var wifiInfo = wifiManager.connectionInfo
 
-        while (wifiInfo.supplicantState != SupplicantState.COMPLETED) {
-            textNameWifi.text = "Conectando ."
-            textNameWifi.text = "Conectando .."
-            textNameWifi.text = "Conectando ..."
-
+        if (wifiInfo.supplicantState == SupplicantState.COMPLETED) {
+            textNameWifi.text = wifiInfo.ssid
+        } else {
+            textNameWifi.text = "No hay Conección"
         }
 
-        textNameWifi.text = wifiInfo.ssid
     }
 }

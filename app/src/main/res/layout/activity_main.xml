@@ -16,8 +16,8 @@
 
         <ImageButton
             android:id="@+id/quick_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:background="@mipmap/button_settings"
             android:layout_marginLeft="15dp"
             app:layout_constraintBottom_toBottomOf="parent"

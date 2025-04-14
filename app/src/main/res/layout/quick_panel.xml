@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
@@ -18,15 +18,16 @@
 
         <ImageButton
             android:id="@+id/wifi_button"
-            android:layout_width="70dp"
-            android:layout_height="75dp"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
             android:background="@mipmap/wifi_state_2"
             android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/wifi_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="Wifi" />
 
     </LinearLayout>
