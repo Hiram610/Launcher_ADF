@@ -3,8 +3,13 @@ package com.example.launcher_adf_2
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Context.WIFI_SERVICE
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.net.wifi.SupplicantState
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -16,6 +21,8 @@ import androidx.fragment.app.DialogFragment
 
 class QuickSettingsFragment : DialogFragment() {
     private lateinit var wifiManager : WifiManager
+    private lateinit var connectivityManager : ConnectivityManager
+    private lateinit var netCallback : ConnectivityManager.NetworkCallback
     private lateinit var btnWifi : ImageButton
     private lateinit var textNameWifi : TextView
 
@@ -28,19 +35,42 @@ class QuickSettingsFragment : DialogFragment() {
         btnWifi = view.findViewById(R.id.wifi_button)
         textNameWifi = view.findViewById(R.id.wifi_name)
 
-        wifiManager = requireContext().applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+        wifiManager = requireContext().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        connectivityManager = requireContext().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        netCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                actualizarStatusWifi(textNameWifi)
+            }
+
+            override fun onLost(network: Network) {
+                actualizarStatusWifi(textNameWifi)
+            }
+
+            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+                actualizarStatusWifi(textNameWifi)
+            }
+
+        }
+
+        val request = NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
+
+        connectivityManager.registerNetworkCallback(request, netCallback)
 
         verificarWifi()
-        cambiarNombreWifi()
+        actualizarStatusWifi(textNameWifi)
+
 
         btnWifi.setOnClickListener {
 
             if(wifiManager.isWifiEnabled) {
-                wifiManager.setWifiEnabled(false)
+                wifiManager.isWifiEnabled = false
+                actualizarStatusWifi(textNameWifi)
                 btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
             }
             else {
-                wifiManager.setWifiEnabled(true)
+                wifiManager.isWifiEnabled = true
+                actualizarStatusWifi(textNameWifi)
                 btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
             }
         }
@@ -51,7 +81,6 @@ class QuickSettingsFragment : DialogFragment() {
         }
 
         builder.setView(view)
-
         return builder.create()
     }
 
@@ -68,15 +97,29 @@ class QuickSettingsFragment : DialogFragment() {
         }
     }
 
-    private fun cambiarNombreWifi() {
-
-        var wifiInfo = wifiManager.connectionInfo
-
-        if (wifiInfo.supplicantState == SupplicantState.COMPLETED) {
-            textNameWifi.text = wifiInfo.ssid
-        } else {
-            textNameWifi.text = "No hay Conección"
+    private fun actualizarStatusWifi(textView: TextView) {
+        requireActivity().runOnUiThread {
+            if(!wifiManager.isWifiEnabled) {
+                textView.text = "No Conectado"
+                return@runOnUiThread
+            }
         }
 
+        val network = connectivityManager.activeNetwork
+        val compatibilities = connectivityManager.getNetworkCapabilities(network)
+
+        if(network != null && compatibilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
+            var wifiInfo = wifiManager.connectionInfo
+            var ssid = wifiInfo.ssid.replace("\"", "")
+            textView.text = ssid
+        } else {
+            textView.text = "Conectando..."
+        }
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        connectivityManager.unregisterNetworkCallback(netCallback)
     }
 }

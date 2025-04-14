@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.GridView
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -40,7 +41,7 @@ class AppsListActivity : AppCompatActivity() {
             insets
         }
 
-        val backButton : Button = findViewById(R.id.user_Button)
+        val backButton : ImageButton = findViewById(R.id.user_Button)
 
         backButton.setOnClickListener {
             var intent = Intent(this, MainActivity::class.java)

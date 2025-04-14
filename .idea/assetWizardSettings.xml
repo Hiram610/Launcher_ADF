@@ -165,7 +165,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Paola\Pictures\button_settings.png" />
+                                                <entry key="imagePath" value="C:\Users\Paola\Pictures\button_back_user.png" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -199,8 +199,8 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Paola\Pictures\button_settings.png" />
-                                      <entry key="outputName" value="button_settings" />
+                                      <entry key="imageAsset" value="C:\Users\Paola\Pictures\button_back_user.png" />
+                                      <entry key="outputName" value="button_back_user" />
                                     </map>
                                   </option>
                                 </PersistentState>
