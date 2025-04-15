@@ -4,13 +4,11 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.Context.WIFI_SERVICE
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import android.net.wifi.SupplicantState
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.provider.Settings
@@ -36,7 +34,11 @@ class QuickSettingsFragment : DialogFragment() {
         textNameWifi = view.findViewById(R.id.wifi_name)
 
         wifiManager = requireContext().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+
         connectivityManager = requireContext().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+
+        val request = NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
 
         netCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
@@ -50,29 +52,15 @@ class QuickSettingsFragment : DialogFragment() {
             override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
                 actualizarStatusWifi(textNameWifi)
             }
-
         }
 
-        val request = NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
 
         connectivityManager.registerNetworkCallback(request, netCallback)
 
-        verificarWifi()
         actualizarStatusWifi(textNameWifi)
 
-
         btnWifi.setOnClickListener {
-
-            if(wifiManager.isWifiEnabled) {
-                wifiManager.isWifiEnabled = false
-                actualizarStatusWifi(textNameWifi)
-                btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
-            }
-            else {
-                wifiManager.isWifiEnabled = true
-                actualizarStatusWifi(textNameWifi)
-                btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
-            }
+            cambiarStatusWifi()
         }
 
         btnWifi.setOnLongClickListener {
@@ -84,29 +72,28 @@ class QuickSettingsFragment : DialogFragment() {
         return builder.create()
     }
 
-    @SuppressLint("ResourceAsColor")
-    private fun verificarWifi() {
 
-        when(wifiManager.isWifiEnabled) {
-            true -> {
-                btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
-            }
-            false -> {
-                btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
-            }
+    private fun cambiarStatusWifi() {
+
+        if (wifiManager.isWifiEnabled) {
+            wifiManager.setWifiEnabled(false)
+        } else {
+            wifiManager.setWifiEnabled(true)
         }
     }
 
     private fun actualizarStatusWifi(textView: TextView) {
-        requireActivity().runOnUiThread {
-            if(!wifiManager.isWifiEnabled) {
-                textView.text = "No Conectado"
-                return@runOnUiThread
-            }
-        }
 
         val network = connectivityManager.activeNetwork
         val compatibilities = connectivityManager.getNetworkCapabilities(network)
+
+        if(!wifiManager.isWifiEnabled) {
+            btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
+            textView.text = "No Conectado"
+            return
+        }
+
+        btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
 
         if(network != null && compatibilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
             var wifiInfo = wifiManager.connectionInfo
