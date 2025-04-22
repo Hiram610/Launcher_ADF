@@ -1,6 +1,7 @@
 package com.example.launcher_adf_2
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -15,8 +16,12 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 
+/**
+ *
+ */
 class QuickSettingsFragment : DialogFragment() {
     private lateinit var wifiManager : WifiManager
     private lateinit var connectivityManager : ConnectivityManager
@@ -57,8 +62,6 @@ class QuickSettingsFragment : DialogFragment() {
 
         connectivityManager.registerNetworkCallback(request, netCallback)
 
-        actualizarStatusWifi(textNameWifi)
-
         btnWifi.setOnClickListener {
             cambiarStatusWifi()
         }
@@ -74,7 +77,6 @@ class QuickSettingsFragment : DialogFragment() {
 
 
     private fun cambiarStatusWifi() {
-
         if (wifiManager.isWifiEnabled) {
             wifiManager.setWifiEnabled(false)
         } else {
@@ -82,27 +84,41 @@ class QuickSettingsFragment : DialogFragment() {
         }
     }
 
+    /**
+     *
+     */
     private fun actualizarStatusWifi(textView: TextView) {
 
+        iconoWifi()
+
         val network = connectivityManager.activeNetwork
-        val compatibilities = connectivityManager.getNetworkCapabilities(network)
+        val info = connectivityManager.getNetworkCapabilities(network)
 
         if(!wifiManager.isWifiEnabled) {
-            btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
             textView.text = "No Conectado"
             return
         }
 
-        btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
-
-        if(network != null && compatibilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
-            var wifiInfo = wifiManager.connectionInfo
-            var ssid = wifiInfo.ssid.replace("\"", "")
+        if(info?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
+            var ssid = wifiManager.connectionInfo.ssid.replace("\"", "")
             textView.text = ssid
         } else {
+
             textView.text = "Conectando..."
         }
 
+    }
+
+
+    /**
+     * Este metodo cambia el icono del wifi dependiendo si esta activo o no.
+     */
+    private fun iconoWifi() {
+        if (wifiManager.isWifiEnabled) {
+            btnWifi.setBackgroundResource(R.mipmap.wifi_state_1)
+        } else {
+            btnWifi.setBackgroundResource(R.mipmap.wifi_state_2)
+        }
     }
 
     override fun onDestroyView() {

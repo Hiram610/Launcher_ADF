@@ -1,7 +1,5 @@
 package com.example.launcher_adf_2
 
-import android.Manifest
-import android.app.WallpaperManager
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -12,17 +10,17 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
@@ -33,10 +31,11 @@ class MainActivity : AppCompatActivity() {
     var adapter : appAdapter? = null // Adaptador para la Lista de las apps
     lateinit var manager: PackageManager // Administrador de las apps Instaladas
     lateinit var appList : GridView // La vista de las apps
-    lateinit var layout : LinearLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -44,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
 
         if(!isDefaultLauncher()) {
             Toast.makeText(this, "Por favor configurar la applicacion como launcher predeterminado", Toast.LENGTH_LONG).show()
