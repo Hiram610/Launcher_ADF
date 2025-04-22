@@ -1,7 +1,7 @@
 package com.example.launcher_adf_2
 
+import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -23,27 +23,33 @@ import androidx.fragment.app.DialogFragment
  *
  */
 class QuickSettingsFragment : DialogFragment() {
-    private lateinit var wifiManager : WifiManager
-    private lateinit var connectivityManager : ConnectivityManager
-    private lateinit var netCallback : ConnectivityManager.NetworkCallback
-    private lateinit var btnWifi : ImageButton
-    private lateinit var textNameWifi : TextView
+    private lateinit var wifiManager: WifiManager
+    private lateinit var connectivityManager: ConnectivityManager
+    private lateinit var netCallback: ConnectivityManager.NetworkCallback
+    private lateinit var btnWifi: ImageButton
+    private lateinit var textNameWifi: TextView
 
     @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            1001
+        )
 
         val builder = AlertDialog.Builder(requireContext())
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.quick_panel, null)
 
         btnWifi = view.findViewById(R.id.wifi_button)
         textNameWifi = view.findViewById(R.id.wifi_name)
+        wifiManager =
+            requireContext().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        connectivityManager =
+            requireContext().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        wifiManager = requireContext().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-
-        connectivityManager = requireContext().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-
-        val request = NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
+        val request =
+            NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
 
         netCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
@@ -59,7 +65,7 @@ class QuickSettingsFragment : DialogFragment() {
             }
         }
 
-
+        actualizarStatusWifi(textNameWifi)
         connectivityManager.registerNetworkCallback(request, netCallback)
 
         btnWifi.setOnClickListener {
@@ -75,7 +81,9 @@ class QuickSettingsFragment : DialogFragment() {
         return builder.create()
     }
 
-
+    /**
+     * Cambia el estado del wifi (lo desactiva o activa)
+     */
     private fun cambiarStatusWifi() {
         if (wifiManager.isWifiEnabled) {
             wifiManager.setWifiEnabled(false)
@@ -85,7 +93,7 @@ class QuickSettingsFragment : DialogFragment() {
     }
 
     /**
-     *
+     * Metodo que actualiza el nombre e icono del Wifi dependiendo si este esta activo o no.
      */
     private fun actualizarStatusWifi(textView: TextView) {
 
@@ -111,7 +119,7 @@ class QuickSettingsFragment : DialogFragment() {
 
 
     /**
-     * Este metodo cambia el icono del wifi dependiendo si esta activo o no.
+     * Metodo que cambia el icono del wifi dependiendo si esta activo o no.
      */
     private fun iconoWifi() {
         if (wifiManager.isWifiEnabled) {

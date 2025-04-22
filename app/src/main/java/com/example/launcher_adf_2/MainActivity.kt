@@ -20,7 +20,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
 
         if(!isDefaultLauncher()) {
             Toast.makeText(this, "Por favor configurar la applicacion como launcher predeterminado", Toast.LENGTH_LONG).show()
