@@ -23,13 +23,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
+import com.example.launcher_adf_2.MainActivity.LoginSuccessListenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LoginSuccessListenter {
+
+    interface LoginSuccessListenter {
+        fun onLoginSuccess(action: String)
+    }
 
     var apps = ArrayList<AppDetail>() // lista de las apps instaladas
     var adapter : appAdapter? = null // Adaptador para la Lista de las apps
     lateinit var manager: PackageManager // Administrador de las apps Instaladas
     lateinit var appList : GridView // La vista de las apps
+    var appPackage : String = "" // El nombre del paquete de la app
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +58,7 @@ class MainActivity : AppCompatActivity() {
         var quickSettingsButton : ImageButton = findViewById(R.id.quick_button)
 
         button.setOnClickListener {
-            var panelLogin = LoginFragment()
-            panelLogin.show(supportFragmentManager, "Dialog Login")
+            openLoginFragment("admin")
         }
 
         quickSettingsButton.setOnClickListener {
@@ -111,10 +116,8 @@ class MainActivity : AppCompatActivity() {
 
                 when(menuItem.itemId) {
                     R.id.delete_option -> {
-
-                        prefs.removeApp(apps.get(pos).name)
-                        Toast.makeText(this, "Se quito app del modo Usuario", Toast.LENGTH_SHORT).show()
-                        recreate()
+                        appPackage = apps.get(pos).name
+                        openLoginFragment("delete")
                         true
                     }
 
@@ -157,6 +160,33 @@ class MainActivity : AppCompatActivity() {
         val resolverInfo = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolverInfo?.activityInfo?.packageName == packageName
     }
+
+    fun openLoginFragment(action: String) {
+        var panelLogin = LoginFragment()
+        panelLogin.setLoginSuccessListenter(this)
+
+        val args = Bundle()
+        args.putString("action", action)
+        panelLogin.arguments = args
+        panelLogin.show(supportFragmentManager, "Dialog Login")
+    }
+
+    override fun onLoginSuccess(action: String) {
+        when (action) {
+            "admin" -> {
+                val intent = Intent(this, AppsListActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "Modo Administrador", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            "delete" -> {
+                prefs.removeApp(appPackage)
+                Toast.makeText(this, "Se quito app del modo Usuario", Toast.LENGTH_SHORT).show()
+                recreate()
+            }
+        }
+    }
+
 
     class appAdapter : BaseAdapter {
         var context : Context? = null
