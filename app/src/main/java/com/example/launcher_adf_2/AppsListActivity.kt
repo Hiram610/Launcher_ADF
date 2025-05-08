@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -29,6 +30,7 @@ class AppsListActivity : AppCompatActivity() {
     var adapter: appAdapter? = null
     lateinit var appList: GridView
     lateinit var manager: PackageManager
+    lateinit var editNumber : EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +44,10 @@ class AppsListActivity : AppCompatActivity() {
         }
 
         val backButton : ImageButton = findViewById(R.id.user_Button)
+        editNumber = findViewById(R.id.num_surcusal_edit)
 
         backButton.setOnClickListener {
+            guardarNumeroSurcusal()
             var intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)
             finish()
@@ -53,6 +57,7 @@ class AppsListActivity : AppCompatActivity() {
         loadApps()
         adapterApps()
         addClickListener()
+        obtenerNumeroSurcusal()
     }
 
     private fun loadApps() {
@@ -114,6 +119,14 @@ class AppsListActivity : AppCompatActivity() {
         val componentName = ComponentName(this, AdminReceiver::class.java)
 
         dpm.setStatusBarDisabled(componentName, false)
+    }
+
+    private fun guardarNumeroSurcusal(){
+        prefs.saveNumber(editNumber.text.toString())
+    }
+
+    private fun obtenerNumeroSurcusal(){
+        editNumber.setText(prefs.getNumber())
     }
 
     class appAdapter : BaseAdapter {

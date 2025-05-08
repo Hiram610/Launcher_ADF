@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
     lateinit var manager: PackageManager // Administrador de las apps Instaladas
     lateinit var appList : GridView // La vista de las apps
     var appPackage : String = "" // El nombre del paquete de la app
+    lateinit var sucNumtxt : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
 
         var button: ImageButton = findViewById(R.id.apps_button)
         var quickSettingsButton : ImageButton = findViewById(R.id.quick_button)
+        sucNumtxt = findViewById(R.id.num_surcusal_txt)
 
         button.setOnClickListener {
             openLoginFragment("admin")
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
             loadApps()
             adapterApps()
             addClickListener()
+            obtenerNumeroSurcusal()
         } catch (e: Exception) {
             Toast.makeText(this, "Hubo un problema con ${e.message}", Toast.LENGTH_LONG).show()
         }
@@ -145,6 +148,10 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
         } else {
             dpm.setStatusBarDisabled(componentName, true)
         }
+    }
+
+    private fun obtenerNumeroSurcusal(){
+        sucNumtxt.setText(prefs.getNumber())
     }
 
     fun openDialogFragment() {
