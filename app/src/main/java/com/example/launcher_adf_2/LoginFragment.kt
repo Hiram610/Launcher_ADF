@@ -54,7 +54,7 @@ class LoginFragment : DialogFragment() {
         var username = userTxt.text.toString()
         var password = passTxt.text.toString()
 
-        return (username.equals("ADF") && password.equals("123456"))
+        return (username.equals("adf") && password.equals("adf"))
     }
 
     fun setLoginSuccessListenter(listener: LoginSuccessListenter) {

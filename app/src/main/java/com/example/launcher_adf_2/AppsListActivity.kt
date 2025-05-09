@@ -32,7 +32,6 @@ class AppsListActivity : AppCompatActivity() {
     lateinit var manager: PackageManager
     lateinit var editNumber : EditText
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,6 +44,7 @@ class AppsListActivity : AppCompatActivity() {
 
         val backButton : ImageButton = findViewById(R.id.user_Button)
         editNumber = findViewById(R.id.num_surcusal_edit)
+
 
         backButton.setOnClickListener {
             guardarNumeroSurcusal()
@@ -122,7 +122,14 @@ class AppsListActivity : AppCompatActivity() {
     }
 
     private fun guardarNumeroSurcusal(){
-        prefs.saveNumber(editNumber.text.toString())
+        val numberInput = editNumber.text.toString()
+        if(numberInput.isNotEmpty()) {
+            val padded = numberInput.padStart(4, '0')
+            prefs.saveNumber(padded)
+        } else {
+            Toast.makeText(this, "Por favor ingrese un numero de surcusal", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun obtenerNumeroSurcusal(){

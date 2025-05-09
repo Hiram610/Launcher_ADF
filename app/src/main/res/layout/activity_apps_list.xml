@@ -42,7 +42,10 @@
                 android:id="@+id/num_surcusal_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0000"
+                android:hint="0000"
+                android:inputType="number"
+                android:maxLength="4"
+                android:digits="0123456789"
                 android:textColor="@color/white"
                 android:textSize="15dp"/>
         </LinearLayout>
