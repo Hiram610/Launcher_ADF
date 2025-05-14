@@ -23,6 +23,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <ImageButton
+            android:id="@+id/admin_settings_button"
+            android:layout_width="40dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:background="@mipmap/button_admin_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

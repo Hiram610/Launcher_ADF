@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageButton
@@ -43,6 +42,7 @@ class AppsListActivity : AppCompatActivity() {
         }
 
         val backButton : ImageButton = findViewById(R.id.user_Button)
+        val adminSettingsButton : ImageButton = findViewById(R.id.admin_settings_button)
         editNumber = findViewById(R.id.num_surcusal_edit)
 
 
@@ -51,6 +51,28 @@ class AppsListActivity : AppCompatActivity() {
             var intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)
             finish()
+        }
+
+        adminSettingsButton.setOnClickListener {
+            val popupMenuSettings = PopupMenu(this, it)
+            popupMenuSettings.inflate(R.menu.popup_menu)
+            popupMenuSettings.menu.findItem(R.id.add_option).isVisible = false
+            popupMenuSettings.menu.findItem(R.id.delete_option).isVisible = false
+
+            popupMenuSettings.setOnMenuItemClickListener { menuItem ->
+                when(menuItem.itemId) {
+                    R.id.pass_option -> {
+                        openPassFragment()
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+
+            popupMenuSettings.show()
+            true
         }
 
         salirKiosco()
@@ -92,7 +114,7 @@ class AppsListActivity : AppCompatActivity() {
         appList.setOnItemLongClickListener{parent, view, pos, id ->
 
             val popMenu = PopupMenu(this, view)
-            popMenu.inflate(R.menu.popup_apps_menu)
+            popMenu.inflate(R.menu.popup_menu)
             popMenu.menu.findItem(R.id.delete_option).isVisible = false
 
             popMenu.setOnMenuItemClickListener { menuItem ->
@@ -112,6 +134,11 @@ class AppsListActivity : AppCompatActivity() {
             popMenu.show()
             true
         }
+    }
+
+    fun openPassFragment() {
+        var panelForm = FormFragment()
+        panelForm.show(supportFragmentManager, "Dialog Form")
     }
 
     private fun salirKiosco(){

@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
 import com.example.launcher_adf_2.MainActivity.LoginSuccessListenter
 
 class LoginFragment : DialogFragment() {
@@ -33,15 +34,22 @@ class LoginFragment : DialogFragment() {
 
         userTxt = view.findViewById(R.id.user_editText)
         passTxt = view.findViewById(R.id.pass_editText)
+
         enterButton = view.findViewById(R.id.enter_btn)
 
         enterButton.setOnClickListener {
-            if (verificar()) {
-                loginSuccessListenter?.onLoginSuccess(action)
+            if (resetPass()) {
+                prefs.savePass("adf", "adf")
+                Toast.makeText(requireContext(), "Credencial Reiniciada", Toast.LENGTH_SHORT).show()
                 dismiss()
             } else {
-                Toast.makeText(requireContext(), "Usuario y Contraseña Incorrectos", Toast.LENGTH_SHORT).show()
-                dismiss()
+                if (verificar()) {
+                    loginSuccessListenter?.onLoginSuccess(action)
+                    dismiss()
+                } else {
+                    Toast.makeText(requireContext(), "Usuario y Contraseña Incorrectos", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
             }
         }
 
@@ -50,11 +58,16 @@ class LoginFragment : DialogFragment() {
         return builder.create()
     }
 
-    fun verificar() : Boolean{
+    private fun verificar() : Boolean{
         var username = userTxt.text.toString()
         var password = passTxt.text.toString()
+        val pass = prefs.getPass()
 
-        return (username.equals("adf") && password.equals("adf"))
+        return (username.equals(pass.first) && password.equals(pass.second))
+    }
+
+    private fun resetPass(): Boolean {
+        return (userTxt.text.equals("reset") && passTxt.text.equals("reset"))
     }
 
     fun setLoginSuccessListenter(listener: LoginSuccessListenter) {

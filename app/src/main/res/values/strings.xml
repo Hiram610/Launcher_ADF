@@ -4,9 +4,12 @@
     <string name="user">USUARIO</string>
     <string name="password">CONTRASEÑA</string>
     <string name="login_Button">ENTRAR</string>
+    <string name="form_text">Inserta las nuevas credenciales</string>
+    <string name="form_Button">CONFIRMAR</string>
     <string name="admin_Button">.  .  .</string>
     <string name="back_Button">.  .  . </string>
     <string name="configuraciones">Configuraciones</string>
     <string name="pop_menu_add">Añadir App al modo Usuario</string>
     <string name="pop_menu_delete">Quitar App</string>
+    <string name="pop_menu_pass">Cambiar Credenciales</string>
 </resources>
