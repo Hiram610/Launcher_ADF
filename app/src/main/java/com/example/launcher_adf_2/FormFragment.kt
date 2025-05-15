@@ -30,7 +30,7 @@ class FormFragment : DialogFragment() {
         confirmButton.setOnClickListener {
             if (verificar()) {
                 prefs.savePass(usernameTxt.text.toString(), passwordTxt.text.toString())
-                Toast.makeText(requireContext(), "Credenciales Actualizados", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Credencial Actualizado", Toast.LENGTH_SHORT).show()
                 dismiss()
             } else {
                 Toast.makeText(requireContext(), "Favor de llenar los campos", Toast.LENGTH_SHORT).show()

@@ -27,8 +27,10 @@
         android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/username_editText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.800" />
 
     <EditText
         android:id="@+id/username_editText"

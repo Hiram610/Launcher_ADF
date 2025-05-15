@@ -4,7 +4,7 @@
     <string name="user">USUARIO</string>
     <string name="password">CONTRASEÑA</string>
     <string name="login_Button">ENTRAR</string>
-    <string name="form_text">Inserta las nuevas credenciales</string>
+    <string name="form_text">Inserta nueva credencial</string>
     <string name="form_Button">CONFIRMAR</string>
     <string name="admin_Button">.  .  .</string>
     <string name="back_Button">.  .  . </string>

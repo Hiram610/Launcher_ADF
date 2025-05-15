@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
             val popMenu = PopupMenu(this, view)
             popMenu.inflate(R.menu.popup_menu)
             popMenu.menu.findItem(R.id.add_option).isVisible = false
+            popMenu.menu.findItem(R.id.pass_option).isVisible = false
 
             popMenu.setOnMenuItemClickListener { menuItem ->
 
