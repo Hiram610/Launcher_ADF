@@ -67,7 +67,7 @@ class LoginFragment : DialogFragment() {
     }
 
     private fun resetPass(): Boolean {
-        return (userTxt.text.equals("reset") && passTxt.text.equals("reset"))
+        return (userTxt.text.toString() == "reset" && passTxt.text.toString() == "reset")
     }
 
     fun setLoginSuccessListenter(listener: LoginSuccessListenter) {
