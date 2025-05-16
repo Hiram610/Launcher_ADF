@@ -53,8 +53,8 @@ class Prefers (val context: Context) {
     }
 
     fun getPass(): Pair<String, String> {
-        val username = storageLogin.getString("username", "adf") ?: "adf"
-        val password = storageLogin.getString("password", "adf") ?: "adf"
+        val username = storageLogin.getString("username", "Adfadmin") ?: "Adfadmin"
+        val password = storageLogin.getString("password", "23646233") ?: "23646233"
         return Pair(username, password)
     }
 
