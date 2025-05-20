@@ -32,12 +32,7 @@ class QuickSettingsFragment : DialogFragment() {
     @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            1001
-        )
-
+        
         val builder = AlertDialog.Builder(requireContext())
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.quick_panel, null)
 

@@ -20,6 +20,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
             insets
         }
 
+
         if(!isDefaultLauncher()) {
             Toast.makeText(this, "Por favor configurar la applicacion como launcher predeterminado", Toast.LENGTH_LONG).show()
             startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
         }
 
         try {
+            checkLocationPermission()
             kioscoMode()
             loadApps()
             adapterApps()
@@ -195,6 +199,24 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
         }
     }
 
+    fun checkLocationPermission() {
+        val permissions = arrayOf(
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+
+        val allGranted = permissions.all {
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+        }
+
+        if (!allGranted) {
+            ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    }
 
     class appAdapter : BaseAdapter {
         var context : Context? = null
