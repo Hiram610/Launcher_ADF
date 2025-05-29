@@ -65,6 +65,10 @@ class AppsListActivity : AppCompatActivity() {
                         openPassFragment()
                         true
                     }
+                    R.id.update_option -> {
+                        openUpdateFragment()
+                        true
+                    }
                     else -> {
                         false
                     }
@@ -75,7 +79,7 @@ class AppsListActivity : AppCompatActivity() {
             true
         }
 
-        salirKiosco()
+//        salirKiosco()
         loadApps()
         adapterApps()
         addClickListener()
@@ -117,6 +121,7 @@ class AppsListActivity : AppCompatActivity() {
             popMenu.inflate(R.menu.popup_menu)
             popMenu.menu.findItem(R.id.delete_option).isVisible = false
             popMenu.menu.findItem(R.id.pass_option).isVisible = false
+            popMenu.menu.findItem(R.id.update_option).isVisible = false
 
             popMenu.setOnMenuItemClickListener { menuItem ->
 
@@ -140,6 +145,11 @@ class AppsListActivity : AppCompatActivity() {
     fun openPassFragment() {
         var panelForm = FormFragment()
         panelForm.show(supportFragmentManager, "Dialog Form")
+    }
+
+    fun openUpdateFragment() {
+        var panelUpdate = UpdateFragment()
+        panelUpdate.show(supportFragmentManager, "Dialog Update")
     }
 
     private fun salirKiosco(){

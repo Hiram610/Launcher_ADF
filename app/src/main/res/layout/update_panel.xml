@@ -1,16 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
 
-
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pop_menu_update"/>
-    
-</LinearLayout>
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:text="@string/pop_menu_update"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"/>
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@mipmap/logo_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageLogo"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/currentVersion_msg"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/currentVersion_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/version_default_txt"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/linear1"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/newestVersion_msg"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/newestVersion_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/version_default_txt"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/SameVersion_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SameVersion_msg"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:id="@+id/update_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/update_Button_txt"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
