@@ -14,9 +14,7 @@
     <string name="pop_menu_pass">Cambiar Credenciales</string>
     <string name="pop_menu_update">Actualizar App</string>
 
-    <string name="currentVersion_msg">Version Actual  ->  v</string>
     <string name="version_default_txt">0.0.0</string>
-    <string name="newestVersion_msg">Version Nueva  ->  v</string>
     <string name="SameVersion_msg">Tienes la version mas reciente</string>
     <string name="update_Button_txt">Actualizar</string>
 

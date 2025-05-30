@@ -27,6 +27,12 @@
         android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.Launcher_ADF_2"
         tools:targetApi="33">
+
+        <activity
+            android:name=".UpdateActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
         <activity
             android:name=".FormFragment"
             android:exported="false"
@@ -66,6 +72,15 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+        <provider
+            android:authorities="${applicationId}.provider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 
 </manifest>

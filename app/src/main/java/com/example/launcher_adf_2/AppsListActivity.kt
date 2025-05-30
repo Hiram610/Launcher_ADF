@@ -148,8 +148,7 @@ class AppsListActivity : AppCompatActivity() {
     }
 
     fun openUpdateFragment() {
-        var panelUpdate = UpdateFragment()
-        panelUpdate.show(supportFragmentManager, "Dialog Update")
+        startActivity(Intent(this, UpdateActivity::class.java))
     }
 
     private fun salirKiosco(){
