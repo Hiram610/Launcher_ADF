@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
 
         try {
             checkLocationPermission()
-            kioscoMode()
+            // kioscoMode()
             loadApps()
             adapterApps()
             addClickListener()
