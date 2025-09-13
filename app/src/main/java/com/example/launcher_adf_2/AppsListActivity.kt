@@ -49,8 +49,8 @@ class AppsListActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             guardarNumeroSurcusal()
             var intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             this.startActivity(intent)
-            finish()
         }
 
         adminSettingsButton.setOnClickListener {
@@ -149,6 +149,13 @@ class AppsListActivity : AppCompatActivity() {
 
     fun openUpdateFragment() {
         startActivity(Intent(this, UpdateActivity::class.java))
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        this.startActivity(intent)
     }
 
     private fun salirKiosco(){

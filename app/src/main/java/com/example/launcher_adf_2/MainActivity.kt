@@ -26,6 +26,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.launcher_adf_2.Launcher_ADF.Companion.prefs
 import com.example.launcher_adf_2.MainActivity.LoginSuccessListenter
+import kotlinx.serialization.builtins.IntArraySerializer
 
 class MainActivity : AppCompatActivity(), LoginSuccessListenter {
 
@@ -188,9 +189,9 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
         when (action) {
             "admin" -> {
                 val intent = Intent(this, AppsListActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 Toast.makeText(this, "Modo Administrador", Toast.LENGTH_SHORT).show()
-                finish()
             }
             "delete" -> {
                 prefs.removeApp(appPackage)
