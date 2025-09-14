@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
 
         try {
             checkLocationPermission()
-            // kioscoMode()
+            kioscoMode()
             loadApps()
             adapterApps()
             addClickListener()
@@ -154,6 +154,12 @@ class MainActivity : AppCompatActivity(), LoginSuccessListenter {
             startActivityForResult(intent, 1)
         } else {
             dpm.setStatusBarDisabled(componentName, true)
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    )
+
         }
     }
 

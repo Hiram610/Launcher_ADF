@@ -79,7 +79,7 @@ class AppsListActivity : AppCompatActivity() {
             true
         }
 
-        // salirKiosco()
+        salirKiosco()
         loadApps()
         adapterApps()
         addClickListener()
@@ -162,7 +162,7 @@ class AppsListActivity : AppCompatActivity() {
         val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         val componentName = ComponentName(this, AdminReceiver::class.java)
 
-         dpm.setStatusBarDisabled(componentName, false)
+        dpm.setStatusBarDisabled(componentName, false)
     }
 
     private fun guardarNumeroSurcusal(){
