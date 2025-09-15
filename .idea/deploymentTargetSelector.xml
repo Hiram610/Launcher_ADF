@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-05-30T17:31:20.818184500Z">
+        <DropdownSelection timestamp="2025-09-14T23:30:47.592391900Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Paola\.android\avd\Zebra_TC22.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\HIGA\.android\avd\Lenovo_TAB_M11.avd" />
             </handle>
           </Target>
         </DropdownSelection>
